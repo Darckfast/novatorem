@@ -211,5 +211,3 @@ const getAlbumCover = async (url: string) => {
     req.end()
   })
 }
-
-export { currentlyPlaying }

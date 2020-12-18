@@ -6,11 +6,9 @@ import theme from './styles/theme'
 import GlobalStyle from './styles/global'
 
 const musicInfo = {
-  albumCover:
-    'https://i.scdn.co/image/ab67616d0000b273c31e9cab40d0210bca9a44e3',
-  musicName:
-    'At Wit&#x27;s End - From &quot;Pirates of the Caribbean: At World&#x27;s End&quot;/Score',
-  artists: 'Fabio Brazza'
+  albumCover: 'https://i.imgur.com/FAMtjqN.png',
+  musicName: '',
+  artists: ''
 }
 
 ReactDOM.render(
