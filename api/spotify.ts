@@ -13,7 +13,7 @@ export interface MusicInfo {
   albumCover: string
 }
 
-export default async (req: NowRequest, res: NowResponse): Promise<any> => {
+export default async (req: NowRequest, res: NowResponse): Promise<void> => {
   return currentlyPlaying().then(musicInfo => {
     const sheet = new ServerStyleSheet()
     try {
@@ -21,7 +21,6 @@ export default async (req: NowRequest, res: NowResponse): Promise<any> => {
       const styles = sheet.getStyleTags()
 
       res.setHeader('Content-Type', 'image/svg+xml')
-      res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate')
 
       res.status(200).send(`
         <svg 
@@ -64,7 +63,7 @@ const genAuthToken = async () => {
     }
 
     const req = request(options, res => {
-      console.log('statusCode:', res.statusCode)
+      console.log('authentication status code:', res.statusCode)
 
       let chunk = ''
       res.on('data', d => {
@@ -108,7 +107,7 @@ const currentlyPlaying = (): Promise<MusicInfo> => {
       }
 
       const req = request(options, async res => {
-        console.log(res.statusCode)
+        console.log('currently-playing status code:', res.statusCode)
 
         let chunk = ''
         res.on('data', d => {
@@ -131,7 +130,8 @@ const currentlyPlaying = (): Promise<MusicInfo> => {
           const arts = data.item.album.artists
             .map((val: { name: string }) => val.name)
             .reduce((acc: string, val: string) => (acc += ', ' + val))
-          console.log(data.item.name, arts, data.item.album.images[0].url)
+
+          console.log('music fetch:', data.item.name)
 
           const musicInfo = {
             musicName: data.item.name,
