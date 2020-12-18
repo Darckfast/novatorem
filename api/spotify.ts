@@ -107,12 +107,8 @@ const currentlyPlaying = (): Promise<MusicInfo> => {
         }
       }
 
-      const req = request(options, res => {
+      const req = request(options, async res => {
         console.log(res.statusCode)
-
-        if (res.statusCode !== 200) {
-          resolve(null)
-        }
 
         let chunk = ''
         res.on('data', d => {
@@ -120,6 +116,16 @@ const currentlyPlaying = (): Promise<MusicInfo> => {
         })
 
         res.on('end', async () => {
+          if (res.statusCode !== 200) {
+            resolve({
+              musicName: '',
+              artists: '',
+              albumCover: await getPlaceHolderImage()
+            })
+
+            return
+          }
+
           const data = JSON.parse(chunk)
 
           const arts = data.item.album.artists
@@ -143,6 +149,35 @@ const currentlyPlaying = (): Promise<MusicInfo> => {
 
       req.end()
     })
+  })
+}
+
+const getPlaceHolderImage = async () => {
+  return new Promise<string>(resolve => {
+    const options = {
+      hostname: 'i.imgur.com',
+      port: 443,
+      path: '/FAMtjqN.png',
+      method: 'GET'
+    }
+
+    const req = request(options, res => {
+      res.setEncoding('base64')
+      if (res.statusCode !== 200) {
+        resolve(null)
+      }
+
+      let chunk = ''
+      res.on('data', d => {
+        chunk += d
+      })
+
+      res.on('end', () => {
+        resolve('data:' + res.headers['content-type'] + ';base64,' + chunk)
+      })
+    })
+
+    req.end()
   })
 }
 

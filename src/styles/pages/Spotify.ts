@@ -79,5 +79,13 @@ export const Content = styled.div`
         }
       }
     }
+
+    .bar-no-animation {
+      width: ${props => props.theme.bars.width};
+      height: ${props => props.theme.bars.height};
+
+      background: ${props => props.theme.bars.color.primary};
+      margin: ${props => props.theme.bars.margin};
+    }
   }
 `

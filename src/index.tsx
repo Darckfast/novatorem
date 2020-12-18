@@ -16,11 +16,7 @@ const musicInfo = {
 ReactDOM.render(
   <ThemeProvider theme={theme}>
     <React.StrictMode>
-      <Home
-        albumCover={musicInfo.albumCover}
-        artists={musicInfo.artists}
-        musicName={musicInfo.musicName}
-      />
+      <Home albumCover={musicInfo.albumCover} artists={''} musicName={''} />
     </React.StrictMode>
     <GlobalStyle />
   </ThemeProvider>,

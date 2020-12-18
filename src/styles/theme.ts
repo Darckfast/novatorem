@@ -27,7 +27,7 @@ const theme = {
     margin: '5px 0 0 0'
   },
   song: {
-    width: '12em',
+    width: '13em',
     fontSize: '24px',
     fontColor: '#808080',
     margin: '0.7em 0 0.7em 0'

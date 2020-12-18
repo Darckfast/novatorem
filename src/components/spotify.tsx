@@ -13,7 +13,9 @@ const Home: React.FC<Props> = ({ albumCover, musicName, artists }) => {
   const Bars = () => {
     const bars = []
     for (let i = 0; i < theme.bars.amount; i++) {
-      bars.push(<div key={i} className="bar"></div>)
+      bars.push(
+        <div key={i} className={musicName ? 'bar' : 'bar-no-animation'}></div>
+      )
     }
 
     return bars
@@ -26,8 +28,8 @@ const Home: React.FC<Props> = ({ albumCover, musicName, artists }) => {
           <img src={albumCover} />
         </a>
         <Content>
-          <div className="song">{musicName}</div>
-          <div className="artist">{artists}</div>
+          <div className="song">{musicName || 'No music playing now'}</div>
+          <div className="artist">{artists || 'None'}</div>
           <div className="bars">{Bars()}</div>
         </Content>
       </ContainerMain>
