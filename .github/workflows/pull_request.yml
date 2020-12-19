@@ -10,8 +10,6 @@ jobs:
       matrix:
         node-version: [14.x]
 
-    environment: Production
-
     steps:
       - uses: actions/checkout@v2
 
