@@ -6,9 +6,9 @@ import theme from './styles/theme'
 import GlobalStyle from './styles/global'
 
 const musicInfo = {
-  albumCover: 'https://i.imgur.com/FAMtjqN.png',
-  musicName: '',
-  artists: ''
+  albumCover: theme.placeHolder.albumCover,
+  musicName: theme.placeHolder.musicName,
+  artists: theme.placeHolder.artists
 }
 
 ReactDOM.render(

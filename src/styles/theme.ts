@@ -42,7 +42,12 @@ const theme = {
     width: '480',
     height: '164'
   },
-  fontFamily: 'Roboto, sans-serif'
+  fontFamily: 'Roboto, sans-serif',
+  placeHolder: {
+    albumCover: 'https://i.imgur.com/FAMtjqN.png',
+    musicName: 'No music playing now',
+    artists: 'None'
+  }
 }
 
 export default theme

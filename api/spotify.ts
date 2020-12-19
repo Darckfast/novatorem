@@ -1,5 +1,5 @@
 import { NowRequest, NowResponse } from '@vercel/node'
-import { request } from 'https'
+import { request, get } from 'https'
 import { stringify } from 'querystring'
 import { renderToString } from 'react-dom/server'
 import { ServerStyleSheet } from 'styled-components'
@@ -95,53 +95,51 @@ const genAuthToken = async () => {
 const currentlyPlaying = (): Promise<MusicInfo> => {
   return new Promise<MusicInfo>((resolve, reject) => {
     genAuthToken().then(token => {
-      const options = {
-        hostname: 'api.spotify.com',
-        port: 443,
-        path: '/v1/me/player/currently-playing',
-        method: 'GET',
-        headers: {
-          Authorization: 'Bearer ' + token,
-          'content-type': 'application/x-www-form-urlencoded'
+      const req = get(
+        'https://api.spotify.com/v1/me/player/currently-playing',
+        {
+          headers: {
+            Authorization: 'Bearer ' + token,
+            'content-type': 'application/x-www-form-urlencoded'
+          }
+        },
+        async res => {
+          console.log('currently-playing status code:', res.statusCode)
+
+          let chunk = ''
+          res.on('data', d => {
+            chunk += d
+          })
+
+          res.on('end', async () => {
+            if (res.statusCode !== 200) {
+              resolve({
+                musicName: '',
+                artists: '',
+                albumCover: await getPlaceHolderImage()
+              })
+
+              return
+            }
+
+            const data = JSON.parse(chunk)
+
+            const arts = data.item.album.artists
+              .map((val: { name: string }) => val.name)
+              .reduce((acc: string, val: string) => (acc += ', ' + val))
+
+            console.log('music fetch:', data.item.name)
+
+            const musicInfo = {
+              musicName: data.item.name,
+              artists: arts,
+              albumCover: await getAlbumCover(data.item.album.images[0].url)
+            }
+
+            resolve(musicInfo)
+          })
         }
-      }
-
-      const req = request(options, async res => {
-        console.log('currently-playing status code:', res.statusCode)
-
-        let chunk = ''
-        res.on('data', d => {
-          chunk += d
-        })
-
-        res.on('end', async () => {
-          if (res.statusCode !== 200) {
-            resolve({
-              musicName: '',
-              artists: '',
-              albumCover: await getPlaceHolderImage()
-            })
-
-            return
-          }
-
-          const data = JSON.parse(chunk)
-
-          const arts = data.item.album.artists
-            .map((val: { name: string }) => val.name)
-            .reduce((acc: string, val: string) => (acc += ', ' + val))
-
-          console.log('music fetch:', data.item.name)
-
-          const musicInfo = {
-            musicName: data.item.name,
-            artists: arts,
-            albumCover: await getAlbumCover(data.item.album.images[0].url)
-          }
-
-          resolve(musicInfo)
-        })
-      })
+      )
 
       req.on('error', e => {
         reject(e)
@@ -154,14 +152,7 @@ const currentlyPlaying = (): Promise<MusicInfo> => {
 
 const getPlaceHolderImage = async () => {
   return new Promise<string>(resolve => {
-    const options = {
-      hostname: 'i.imgur.com',
-      port: 443,
-      path: '/FAMtjqN.png',
-      method: 'GET'
-    }
-
-    const req = request(options, res => {
+    const req = get(theme.placeHolder.albumCover, res => {
       res.setEncoding('base64')
       if (res.statusCode !== 200) {
         resolve(null)
@@ -183,16 +174,7 @@ const getPlaceHolderImage = async () => {
 
 const getAlbumCover = async (url: string) => {
   return new Promise<string>(resolve => {
-    const imageId = url.split('/')[4]
-
-    const options = {
-      hostname: 'i.scdn.co',
-      port: 443,
-      path: `/image/${imageId}`,
-      method: 'GET'
-    }
-
-    const req = request(options, res => {
+    const req = get(url, res => {
       res.setEncoding('base64')
       if (res.statusCode !== 200) {
         resolve(null)
