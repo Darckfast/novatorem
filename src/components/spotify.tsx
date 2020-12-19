@@ -28,8 +28,8 @@ const Home: React.FC<Props> = ({ albumCover, musicName, artists }) => {
           <img src={albumCover} />
         </a>
         <Content>
-          <div className="song">{musicName || 'No music playing now'}</div>
-          <div className="artist">{artists || 'None'}</div>
+          <div className="song">{musicName || theme.placeHolder.musicName}</div>
+          <div className="artist">{artists || theme.placeHolder.artists}</div>
           <div className="bars">{Bars()}</div>
         </Content>
       </ContainerMain>

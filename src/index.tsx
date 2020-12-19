@@ -7,8 +7,8 @@ import GlobalStyle from './styles/global'
 
 const musicInfo = {
   albumCover: theme.placeHolder.albumCover,
-  musicName: theme.placeHolder.musicName,
-  artists: theme.placeHolder.artists
+  musicName: '',
+  artists: ''
 }
 
 ReactDOM.render(
