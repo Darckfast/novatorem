@@ -1,4 +1,4 @@
-name: Deploy app
+name: Check PR
 
 on: [pull_request]
 
