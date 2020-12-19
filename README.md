@@ -61,9 +61,8 @@ const theme = {
     background: '#121214',
     backgroundLight: '#2a2a2f',
     text: '#e1e1e6',
-    disabled: '#C5C5CF',
     primary: '#8257e6',
-    secondary: '#0ec63c',
+    secondary: '#0ec63c'
   },
   bars: {
     amount: 60,
@@ -99,7 +98,12 @@ const theme = {
     width: '480',
     height: '164'
   },
-  fontFamily: 'Roboto, sans-serif'
+  fontFamily: 'Roboto, sans-serif',
+  placeHolder: {
+    albumCover: 'https://i.imgur.com/FAMtjqN.png',
+    musicName: 'No music playing now',
+    artists: 'None'
+  }
 }
 
 export default theme
