@@ -1,0 +1,30 @@
+name: Check PR
+
+on: [pull_request]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - run: yarn install --frozen-lockfile
+        name: Installing dependencies
+
+      - run: yarn lint
+        name: Checking linting
+
+      #- name: Checking commit message
+      #  uses: wagoid/commitlint-github-action@v2
+      #  with:
+      #    firstParent: true
