@@ -8,10 +8,23 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [14.x]
+
     environment: Production
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - run: yarn lint
+        name: Checking linting
+
       - uses: amondnet/vercel-action@v20
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
