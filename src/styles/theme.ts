@@ -21,14 +21,16 @@ const theme = {
   },
   artist: {
     fontSize: '20px',
-    fontColor: '#562eb2',
-    margin: '5px 0 0 0'
+    fontColor: '#c9c9c9',
+    margin: '5px 0 0 0',
+    mixBlendMode: 'difference'
   },
   song: {
     width: '13em',
     fontSize: '24px',
-    fontColor: '#6339c2',
-    margin: '0.7em 0 0.7em 0'
+    fontColor: '#9b9b9b',
+    margin: '0.7em 0 0.7em 0',
+    mixBlendMode: 'difference'
   },
   albumCover: {
     margin: '1em',
@@ -45,6 +47,9 @@ const theme = {
     albumCover: 'https://i.imgur.com/FAMtjqN.png',
     musicName: 'No music playing now',
     artists: 'None'
+  },
+  svg: {
+    background: 'inherit'
   }
 }
 

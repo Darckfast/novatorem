@@ -37,6 +37,7 @@ export const Content = styled.div`
     margin: ${props => props.theme.song.margin};
     font-size: ${props => props.theme.song.fontSize};
     width: ${props => props.theme.song.width};
+    mix-blend-mode: ${props => props.theme.song.mixBlendMode};
 
     text-align: center;
     white-space: nowrap;
@@ -47,6 +48,7 @@ export const Content = styled.div`
     color: ${props => props.theme.artist.fontColor};
     font-size: ${props => props.theme.artist.fontSize};
     margin: ${props => props.theme.artist.margin};
+    mix-blend-mode: ${props => props.theme.artist.mixBlendMode};
 
     text-align: center;
   }
