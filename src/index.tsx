@@ -14,7 +14,19 @@ const musicInfo = {
 ReactDOM.render(
   <ThemeProvider theme={theme}>
     <React.StrictMode>
-      <Home albumCover={musicInfo.albumCover} artists={''} musicName={''} />
+      <svg
+        width={theme.dimension.width}
+        height={theme.dimension.height}
+        style={theme.svg}
+      >
+        <foreignObject
+          width={theme.dimension.width}
+          height={theme.dimension.height}
+          style={theme.svg}
+        >
+          <Home albumCover={musicInfo.albumCover} artists={''} musicName={''} />
+        </foreignObject>
+      </svg>
     </React.StrictMode>
     <GlobalStyle />
   </ThemeProvider>,

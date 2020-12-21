@@ -26,10 +26,11 @@ export default async (req: NowRequest, res: NowResponse): Promise<void> => {
         <svg 
           width="${theme.dimension.width}" 
           height="${theme.dimension.height}" 
+          style="background:${theme.svg.background}"
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink">
           
-          <foreignObject width="${theme.dimension.width}" height="${theme.dimension.height}">
+          <foreignObject width="${theme.dimension.width}" height="${theme.dimension.height}" style="background:${theme.svg.background}">
             <div xmlns="http://www.w3.org/1999/xhtml">
               ${styles}
               ${html}
