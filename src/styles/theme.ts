@@ -21,13 +21,13 @@ const theme = {
   },
   artist: {
     fontSize: '20px',
-    fontColor: '#e1e1e6',
+    fontColor: '#562eb2',
     margin: '5px 0 0 0'
   },
   song: {
     width: '13em',
     fontSize: '24px',
-    fontColor: '#808080',
+    fontColor: '#6339c2',
     margin: '0.7em 0 0.7em 0'
   },
   albumCover: {
